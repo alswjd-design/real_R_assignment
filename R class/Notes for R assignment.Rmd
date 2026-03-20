@@ -1,0 +1,24 @@
+#read_csv download
+install.packages("readr")
+install.packages("tidyverse")
+library(tidyverse)
+
+dvst <- read_csv("https://raw.githubusercontent.com/vsbuffalo/bds-files/master/chapter-08-r/Dataset_S1.txt")
+
+
+#Your turn
+## Find all sampling windows
+### with the lowest/highest GC content
+filter(dvst, '%GC' == min('%GC'))
+### that have 0 total SNPs
+### that are incomplete (<1000 bp)
+filter(dvst, 'total Bases'<1000)
+filter(dvst, start - end < 1000)
+### that have the highest divergence with the chimp
+filter(dvst, '%GC'>mean('%GC') - .05*mean('%GC') & '%GC' < mean('%GC') + .05*mean('%GC'))
+
+## How many windows fall into the centromeric region?
+filter(dvst, cent==T)
+685
+
+dvst <- mutate(dvst, diversity = Pi / (10*1000), cent = start - end.......)
